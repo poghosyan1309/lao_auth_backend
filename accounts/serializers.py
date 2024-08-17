@@ -1,14 +1,14 @@
 from rest_framework import serializers
-from .models import CustomUser
+from .models import LaoUser
 
-class UserSerializer(serializers.ModelSerializer):
+class LaoUserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CustomUser
+        model = LaoUser
         fields = ('id', 'email', 'first_name', 'last_name', 'password')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        user = CustomUser.objects.create_user(
+        user = LaoUser.objects.create_user(
             email=validated_data['email'],
             password=validated_data['password'],
             first_name=validated_data.get('first_name', ''),
