@@ -1,0 +1,15 @@
+[run]
+branch = true
+omit = */tests/*, */migrations/*,
+source = .
+
+[report]
+show_missing = true
+sort = Name
+
+[html]
+directory = coverage_html_report
+
+[xml]
+# Generate XML report
+output = coverage.xml

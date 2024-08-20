@@ -9,10 +9,5 @@ djangorestframework-simplejwt==5.3.1
 drf-yasg==1.21.7
 gunicorn==22.0.0
 whitenoise==6.6.0
-flake8==7.0.0
-celery==5.4.0
 setuptools>=67.6.1 # not directly required, pinned by Snyk to avoid a vulnerability
 coverage==7.5.2
-sentry-sdk==2.3.1
-factory-boy==3.3.0
-phonenumberslite==8.13.37
