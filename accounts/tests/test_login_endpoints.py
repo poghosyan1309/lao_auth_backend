@@ -25,8 +25,8 @@ class AuthTests(APITestCase):
         }
         response = self.client.post(self.register_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(User.objects.count(), 2)
-        self.assertEqual(User.objects.get(email='newuser@example.com').email, 'newuser@example.com')
+        self.assertEqual(User.objects.count(), 2)  # top i created one user
+        self.assertTrue(User.objects.filter(email='newuser@example.com').exists())
 
     def test_user_login(self):
         data = {
