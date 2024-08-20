@@ -1,7 +1,8 @@
-version: '3.8'
+version: '3.9'
 
 services:
-  db:
+
+  auth_db:
     image: postgres:13
     environment:
       POSTGRES_DB: mydatabase
@@ -9,9 +10,8 @@ services:
       POSTGRES_PASSWORD: mypassword
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - mynetwork
-  web:
+
+  lao_auth_backend:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
@@ -26,12 +26,7 @@ services:
       - DB_HOST=db
       - DB_PORT=5432
     depends_on:
-      - db
-    networks:
-      - mynetwork
-
-networks:
-  mynetwork:
+      - auth_db
 
 volumes:
   postgres_data:

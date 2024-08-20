@@ -32,10 +32,6 @@ coverage/
 .coverage.*
 *.log
 
-# Ignore Django migrations
-**/migrations/*
-!**/migrations/__init__.py
-
 # Ignore various editor and IDE directories
 .vscode/
 .idea/
