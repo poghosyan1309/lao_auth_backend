@@ -1,0 +1,43 @@
+# Ignore Python bytecode and cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Ignore virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# Ignore local database
+*.db
+db.sqlite3
+
+# Ignore local environment variables
+.env
+
+# Ignore media and static files
+/staticfiles/
+/mediafiles/
+
+# Ignore pytest cache
+.pytest_cache/
+
+# Ignore test output files
+coverage/
+*.cover
+.coverage
+.coverage.*
+*.log
+
+# Ignore various editor and IDE directories
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore Docker-related files if necessary
+Dockerfile
+docker-compose.yml
