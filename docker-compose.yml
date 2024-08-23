@@ -1,16 +1,17 @@
-version: '3.9'
 
 services:
 
   auth_db:
     image: postgres:13
+    ports:
+     - "5432:5432"
     environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: "lao_auth_db"
+      POSTGRES_USER: "lao_auth_user"
+      POSTGRES_PASSWORD: "lao_auth_password"
+
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
   lao_auth_backend:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
@@ -18,15 +19,10 @@ services:
       - .:/app
     ports:
       - "8000:8000"
-    environment:
-      - DEBUG=1
-      - DB_NAME=mydatabase
-      - DB_USER=myuser
-      - DB_PASSWORD=mypassword
-      - DB_HOST=db
-      - DB_PORT=5432
     depends_on:
       - auth_db
+    env_file:
+      - .env
 
 volumes:
   postgres_data:
