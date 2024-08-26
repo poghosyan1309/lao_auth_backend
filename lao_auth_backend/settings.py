@@ -170,20 +170,16 @@ logging.config.dictConfig({
             'class': 'logging.StreamHandler',
             'formatter': 'default',
         },
-        'sentry': {
-            'level': LOGLEVEL,
-            'formatter': 'default',
-        },
         'django.server': DEFAULT_LOGGING['console']['sentry'],
     },
     'loggers': {
         '': {
             'level': 'WARNING',
-            'handlers': ['console', 'sentry'],
+            'handlers': ['console'],
         },
         'app': {
             'level': LOGLEVEL,
-            'handlers': ['console', 'sentry'],
+            'handlers': ['console'],
             'propagate': False,
         },
         'noisy_module': {
