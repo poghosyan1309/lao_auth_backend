@@ -12,17 +12,7 @@ $ git clone git@github.com:poghosyan1309/lao_auth_backend.git
 $ cd lao_auth_backend
 ```
 
-### Create a virtual environment to install dependencies in and activate it:
 
-```bash
-$ python -m venv venv
-$ source venv/bin/activate
-```
-### Then install the dependencies:
-
-```bash
-(env) $ pip install -r requirements.txt
-```
 ### Environment Variables
 
 Ensure you have the required environment variables set up in a .env file or export them in your shell:
@@ -88,9 +78,3 @@ To see a list of available commands in the Makefile:
 $ make help
 ```
 
-## Fetures
-
-- User registration
-- User login
-- JWT token issuance with claims (email, first name, last name)
-- Token refresh
