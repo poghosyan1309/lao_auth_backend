@@ -151,7 +151,7 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Logging configs
+
 LOGGING_CONFIG = None
 
 LOGLEVEL = os.getenv("LOGLEVEL", "INFO").upper()
@@ -159,6 +159,11 @@ LOGLEVEL = os.getenv("LOGLEVEL", "INFO").upper()
 logging.config.dictConfig({
     'version': 1,
     'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
     'formatters': {
         'default': {
             'format': '%(asctime)s %(levelname)s %(name)s: %(message)s',
@@ -170,7 +175,11 @@ logging.config.dictConfig({
             'class': 'logging.StreamHandler',
             'formatter': 'default',
         },
-        'django.server': DEFAULT_LOGGING['console']['sentry'],
+        'django.server': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'django.server',
+            'filters': ['require_debug_true'],
+        },
     },
     'loggers': {
         '': {
@@ -187,6 +196,11 @@ logging.config.dictConfig({
             'handlers': ['console'],
             'propagate': False,
         },
-        'django.server': DEFAULT_LOGGING['loggers']['django.server'],
+        'django.server': {
+            'level': 'INFO',
+            'handlers': ['django.server'],
+            'propagate': False,
+        },
     }
 })
+
