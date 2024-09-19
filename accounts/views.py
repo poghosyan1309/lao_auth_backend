@@ -8,4 +8,3 @@ class RegisterView(generics.CreateAPIView):
     queryset = LaoUser.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = LaoUserSerializer
-
