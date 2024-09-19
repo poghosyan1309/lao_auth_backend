@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
-import os
+
+import logging.config
+from django.utils.log import DEFAULT_LOGGING
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'rest_framework',
     'rest_framework_simplejwt',
+    'corsheaders',
     'accounts',
 ]
 
@@ -52,7 +55,16 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_EXPOSE_HEADERS = ['Authorization']
+
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
 
 ROOT_URLCONF = "lao_auth_backend.urls"
 
@@ -156,4 +168,57 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+LOGGING_CONFIG = None
+
+LOGLEVEL = os.getenv("LOGLEVEL", "INFO").upper()
+
+logging.config.dictConfig({
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'formatters': {
+        'default': {
+            'format': '%(asctime)s %(levelname)s %(name)s: %(message)s',
+        },
+        'django.server': DEFAULT_LOGGING['formatters']['django.server'],
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'default',
+        },
+        'django.server': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'django.server',
+            'filters': ['require_debug_true'],
+        },
+    },
+    'loggers': {
+        '': {
+            'level': 'WARNING',
+            'handlers': ['console'],
+        },
+        'app': {
+            'level': LOGLEVEL,
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'noisy_module': {
+            'level': 'ERROR',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'django.server': {
+            'level': 'INFO',
+            'handlers': ['django.server'],
+            'propagate': False,
+        },
+    }
+})
 
